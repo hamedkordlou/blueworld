@@ -1,0 +1,28 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+html, body, #form1, #mapid {
+    height: 100%;
+    width: 100%;
+}
+
+.div-logo-title {
+    background-color: #FFFFFF;
+    height: 60px;
+    left: 10px;
+    padding-top: 10px;
+    position: absolute;
+    text-align: center;
+    top: 47px;
+    width: 215px;
+    z-index: 10;            
+}
+
+#custom-zoom-control {
+    position: absolute;
+    right: 10px; 
+    bottom: 50px; 
+    z-index: 10;
+}
