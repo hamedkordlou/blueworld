@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Backend.OutboundResources;
 using System.Collections.Generic;
+using Backend.Persistence;
 
 namespace Backend.Controllers
 {
@@ -9,56 +10,32 @@ namespace Backend.Controllers
 
     public class ViewsController : ControllerBase
     {
-
+        private readonly IDataManager _dataManager;
+        public ViewsController(IDataManager dataManager)
+        {
+            this._dataManager = dataManager;
+        }
+        
         // GET api/views/{username}
         [HttpGet("{username}")]
         public IActionResult Get(string username)
         {
-            var temp = new MapView()
-            {
-                Lat = 51.505,
-                Lng = -0.09,
-                Zoom = 12,
-                Markers = new List<Marker>()
-                {
-                    new Marker()
-                    {
-                        Id = "1",
-                        Lat = 51.505,
-                        Lng = -0.09,
-                        Text = "first destination"
-                    },
-                    new Marker()
-                    {
-                        Id = "2",
-                        Lat = 51.555,
-                        Lng = -0.08,
-                        Text = "second destination"
-                    },
-                    new Marker()
-                    {
-                        Id = "3",
-                        Lat = 51.465,
-                        Lng = -0.12,
-                        Text = "third destination"
-                    }
-                }
-            };
-            return Ok(temp);
+            var view = _dataManager.GetView(username);
+            return Ok(view);
         }
 
         // POST api/views
         [HttpPost]
-        public void Post([FromBody] MapView value)
+        public void Post([FromBody] MapView view)
         {
-            return;
+            _dataManager.UpdateView(view);
         }
 
         // POST api/views/sharemapview
         [HttpPost("sharemapview")]
-        public void ShareMapView([FromBody] SharedView value)
+        public void ShareMapView([FromBody] SharedView view)
         {
-            return;
+            _dataManager.ShareMapView(view);
         }
 
     }
