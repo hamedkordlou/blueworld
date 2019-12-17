@@ -42,7 +42,8 @@ namespace Backend
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddTransient<IDataManager, MockDataManager>();
+            // services.AddTransient<IDataManager, MockDataManager>();
+            services.AddTransient<IDataManager, MySqlDataManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
