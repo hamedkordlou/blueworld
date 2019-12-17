@@ -1,0 +1,14 @@
+/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/bin/Debug/netcoreapp2.2/Backend.deps.json
+/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/bin/Debug/netcoreapp2.2/Backend.runtimeconfig.json
+/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/bin/Debug/netcoreapp2.2/Backend.runtimeconfig.dev.json
+/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/bin/Debug/netcoreapp2.2/Backend.dll
+/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/bin/Debug/netcoreapp2.2/Backend.pdb
+/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/obj/Debug/netcoreapp2.2/Backend.csprojAssemblyReference.cache
+/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/obj/Debug/netcoreapp2.2/Backend.csproj.CoreCompileInputs.cache
+/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/obj/Debug/netcoreapp2.2/Backend.RazorAssemblyInfo.cache
+/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/obj/Debug/netcoreapp2.2/Backend.RazorAssemblyInfo.cs
+/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/obj/Debug/netcoreapp2.2/Backend.AssemblyInfoInputs.cache
+/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/obj/Debug/netcoreapp2.2/Backend.AssemblyInfo.cs
+/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/obj/Debug/netcoreapp2.2/Backend.RazorTargetAssemblyInfo.cache
+/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/obj/Debug/netcoreapp2.2/Backend.dll
+/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/obj/Debug/netcoreapp2.2/Backend.pdb

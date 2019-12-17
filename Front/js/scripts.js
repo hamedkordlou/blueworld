@@ -1,3 +1,5 @@
+const baseUrl = "http://localhost:5000/";
+var _username;
 // initializing the map
 var tempMarkerForCreation;
 var mapCenter;
@@ -18,7 +20,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 //calling the web api to collect some data about the user
 
-function getMockData(userName) {
+function getMockData(username) {
     var obj = {
         lat: 51.505,
         lng: -0.09,
@@ -45,6 +47,20 @@ function getMockData(userName) {
         ]
     };
      return obj;
+}
+function getViewData(username) {
+    $.ajax({
+        contentType: 'application/json',
+        type: "GET",
+        url: baseUrl + "api/views/" + username,
+        success: function (data, textStatus, jqXHR) {
+            console.log(data);
+            showData(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.statusText);
+        }
+    });
 }
 
 function getMockSharedViews() {
@@ -103,6 +119,21 @@ function getMockSharedViews() {
     return list;
 }
 
+function getSharedViews(username) {
+    $.ajax({
+        contentType: 'application/json',
+        type: "GET",
+        url: baseUrl + "api/sharedviews/" + username,
+        success: function (data, textStatus, jqXHR) {
+            console.log("shared views", data);
+            sharedViews = data;
+            displaySharedViewsList(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.statusText);
+        }
+    });
+}
 // 
 
 
@@ -156,11 +187,13 @@ function loadHome() {
             if(param.length == 2) {
                 if(param[0] === "userName") {
                     // console.log(param[1]);
-                    markersData = getMockData(param[1]);
-                    console.log(markersData);
-                    setTimeout(function() {
-                        showData(markersData);
-                    }, 2000);
+                    _username = param[1];
+                    // markersData = getMockData(_username);
+                    markersData = getViewData(_username);
+                    // console.log(markersData);
+                    // setTimeout(function() {
+                    //     showData(markersData);
+                    // }, 2000);
                     
                 }
                 else {
@@ -257,6 +290,20 @@ function updateMarker(index)
     /** end customize popup **/
 
     tempMarker.bindPopup(customPopup,customOptions);
+
+    // console.log("marker info ", markersData.markers[index]);
+    $.ajax({
+        contentType: 'application/json',
+        type: "PUT",
+        url: baseUrl + "api/markers/" + markersData.markers[index].id,
+        data: JSON.stringify(markersData.markers[index]),
+        success: function (data, textStatus, jqXHR) {
+            console.log(jqXHR.responseText);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.statusText);
+        }
+    });
 }
 
 
@@ -280,13 +327,37 @@ mymap.on('moveend', function(e) {
     mapCenter = center;
     mapZoom = zoom;
 
+    console.log("in save map");
+    console.log("center", mapCenter);
+    console.log("zoom", mapZoom);
+
     // call a web api to store this data
+    $.ajax({
+        contentType: 'application/json',
+        type: "POST",
+        url: baseUrl + "api/views",
+        data: JSON.stringify({
+            username: _username,
+            lat : mapCenter.lat,
+            lng : mapCenter.lng,
+            zoom : mapZoom
+        }),
+        success: function (data, textStatus, jqXHR) {
+            console.log(jqXHR.responseText);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.statusText);
+        }
+    });
+
  }
 
 function shareMapView(userName) {
 
     // find all the markers inside of the view
     var tempMarkerData = {};
+    tempMarkerData.sender = _username;
+    tempMarkerData.reciever = userName;
     tempMarkerData.lat = mymap.getCenter().lat;
     tempMarkerData.lng = mymap.getCenter().lng;
     tempMarkerData.zoom = mymap.getZoom();
@@ -306,9 +377,21 @@ function shareMapView(userName) {
             tempMarkerData.markers.push(temp[0]);
         }
     });
-    // console.log(tempMarkerData);
+    console.log("tempmarkerData", tempMarkerData);
 
     // send this array of markers and username to the web api
+    $.ajax({
+        contentType: 'application/json',
+        type: "POST",
+        url: baseUrl + "api/views/sharemapview",
+        data: JSON.stringify(tempMarkerData),
+        success: function (data, textStatus, jqXHR) {
+            console.log(jqXHR.responseText);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.statusText);
+        }
+    });
 }
 
 $("#shareBtn").click(function(event) {
@@ -328,10 +411,13 @@ $("#homeBtn").click(function(event) {
 
 function loadSharedViews() {
     // get the list of shared views from web api or mock data
-    sharedViews = getMockSharedViews();
-    console.log(sharedViews);
+    // sharedViews = getMockSharedViews();
+    getSharedViews(_username);
+    // console.log(sharedViews);
+    
+}
 
-    // display the list
+function displaySharedViewsList(sharedViews) {
     var modalBody = $("#unorder-list");
     modalBody.empty();
     sharedViews.forEach(item => {
@@ -341,11 +427,6 @@ function loadSharedViews() {
                             </a>
                         `);
     });
-
-    // markersHolder.forEach(m => {
-    //     mymap.removeLayer(m);
-    // });
-
 }
 
 $(document).on('click', 'a', function (e) {
@@ -424,6 +505,20 @@ $(document).on('click',"button[id$='-create']",function(){
     tempMarkerForCreation = undefined;
 
     mymap.closePopup();
+
+    // send the created marker to web api
+    $.ajax({
+        contentType: 'application/json',
+        type: "POST",
+        url: baseUrl + "api/markers/" + _username,
+        data: JSON.stringify(markerTempData),
+        success: function (data, textStatus, jqXHR) {
+            console.log(jqXHR.responseText);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.statusText);
+        }
+    });
 });
 
 $(document).on('click',"button[id$='-discard']",function(){
