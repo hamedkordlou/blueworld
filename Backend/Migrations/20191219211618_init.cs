@@ -50,8 +50,8 @@ namespace Backend.Migrations
                     Lat = table.Column<double>(nullable: false),
                     Lng = table.Column<double>(nullable: false),
                     Text = table.Column<string>(nullable: true),
-                    SharedViewId = table.Column<int>(nullable: true),
-                    ViewId = table.Column<int>(nullable: true)
+                    ViewId = table.Column<int>(nullable: true),
+                    SharedViewId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -61,13 +61,13 @@ namespace Backend.Migrations
                         column: x => x.SharedViewId,
                         principalTable: "SharedViews",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Markers_Views_ViewId",
                         column: x => x.ViewId,
                         principalTable: "Views",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

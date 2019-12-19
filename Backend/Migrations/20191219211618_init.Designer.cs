@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(MySqlDbContext))]
-    [Migration("20191217194016_init")]
+    [Migration("20191219211618_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,13 +89,15 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Model.Marker", b =>
                 {
-                    b.HasOne("Backend.Model.SharedView")
+                    b.HasOne("Backend.Model.SharedView", "SharedView")
                         .WithMany("Markers")
-                        .HasForeignKey("SharedViewId");
+                        .HasForeignKey("SharedViewId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Backend.Model.View")
+                    b.HasOne("Backend.Model.View", "View")
                         .WithMany("Markers")
-                        .HasForeignKey("ViewId");
+                        .HasForeignKey("ViewId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

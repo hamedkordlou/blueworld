@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Backend.OutboundResources;
 using Backend.Persistence.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Persistence 
 {
@@ -30,6 +31,7 @@ namespace Backend.Persistence
             var view = _context.Views.FirstOrDefault(x => x.UserName == userName);
             if(view != null)
             {
+                // view.Include(v => v.Markers);
                 view.Markers.Add(_marker);
             }
             _context.Views.Update(view);
@@ -38,7 +40,10 @@ namespace Backend.Persistence
 
         public IList<SharedView> GetSharedViews (string username) 
         {
-            var sharedViews = _context.SharedViews.Where(x => x.Reciever == username).ToList();
+            var sharedViews = _context.SharedViews
+                                    .Where(x => x.Reciever == username)
+                                    // .Include(x => x.Markers)
+                                    .ToList();
             var result = new List<SharedView>();
             sharedViews.ForEach(x => {
                 var tempMarkerList = new List<Marker>();
@@ -68,7 +73,9 @@ namespace Backend.Persistence
 
         public MapView GetView (string username) 
         {
-            var view = _context.Views.FirstOrDefault(x => x.UserName == username);
+            var view = _context.Views
+                                .Include(x => x.Markers)
+                                .FirstOrDefault(x => x.UserName == username);
             if(view == null)
                 return GetDefaultView(username);
             var tempMarkerList = new List<Marker>();
