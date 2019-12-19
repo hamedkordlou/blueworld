@@ -22,10 +22,14 @@ namespace Backend.Persistence.Context
                 .IsUnique();
 
             modelBuilder.Entity<SharedView>()
-                .HasMany(m => m.Markers);
+                .HasMany(s => s.Markers)
+                .WithOne(m => m.SharedView)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<View>()
-                .HasMany(m => m.Markers);
+                .HasMany(v => v.Markers)
+                .WithOne(m => m.View)
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

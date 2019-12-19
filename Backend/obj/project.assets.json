@@ -12807,11 +12807,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/Backend.csproj",
+      "projectUniqueName": "/home/hamed/Documents/projects/BlueWorld/2/blueworld/Backend/Backend.csproj",
       "projectName": "Backend",
-      "projectPath": "/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/Backend.csproj",
+      "projectPath": "/home/hamed/Documents/projects/BlueWorld/2/blueworld/Backend/Backend.csproj",
       "packagesPath": "/home/hamed/.nuget/packages/",
-      "outputPath": "/home/hamed/Documents/projects/BlueWorld/blueworld/Backend/obj/",
+      "outputPath": "/home/hamed/Documents/projects/BlueWorld/2/blueworld/Backend/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/share/dotnet/sdk/NuGetFallbackFolder"

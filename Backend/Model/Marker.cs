@@ -7,5 +7,7 @@ namespace Backend.Model
         public double Lat { get; set; }
         public double Lng { get; set; }
         public string Text { get; set; }
+        public View View { get; set; }
+        public SharedView SharedView { get; set; }
     }
 }

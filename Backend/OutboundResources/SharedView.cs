@@ -10,7 +10,7 @@ namespace Backend.OutboundResources
         public double Lat { get; set; }
         public double Lng { get; set; }
         public int Zoom { get; set; }
-        public IEnumerable<Marker> Markers { get; set; }
+        public ICollection<Marker> Markers { get; set; }
 
         public SharedView()
         {

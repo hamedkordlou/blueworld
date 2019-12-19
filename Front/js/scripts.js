@@ -55,6 +55,7 @@ function getViewData(username) {
         url: baseUrl + "api/views/" + username,
         success: function (data, textStatus, jqXHR) {
             console.log(data);
+            markersData = data;
             showData(data);
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -143,6 +144,8 @@ function showData(data) {
         mymap.removeLayer(m);
     });
 
+    if(data == null) return;
+
     mymap.flyTo([data.lat, data.lng], data.zoom, {
         animate: true,
         duration: 2 // in seconds
@@ -189,8 +192,8 @@ function loadHome() {
                     // console.log(param[1]);
                     _username = param[1];
                     // markersData = getMockData(_username);
-                    markersData = getViewData(_username);
-                    // console.log(markersData);
+                    getViewData(_username);
+                    // console.log("markersData", markersData);
                     // setTimeout(function() {
                     //     showData(markersData);
                     // }, 2000);
@@ -499,9 +502,10 @@ $(document).on('click',"button[id$='-create']",function(){
         text: txt
     };
     console.log("markerTempData",markerTempData);
+    console.log("markerData", markersData);
     markersData.markers.push(markerTempData);
 
-    // console.log("markerData", markersData.markers);
+    
     tempMarkerForCreation = undefined;
 
     mymap.closePopup();
