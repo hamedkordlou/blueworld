@@ -113,14 +113,17 @@ namespace Backend.Persistence
 
         public void ShareMapView(SharedView view)
         {
+            throw new System.NotImplementedException();
         }
 
         public void UpdateMarker(string id, Marker marker)
         {
+            throw new System.NotImplementedException();
         }
 
         public void UpdateView(MapView view)
         {
+            throw new System.NotImplementedException();
         }
     }
 }

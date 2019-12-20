@@ -34,7 +34,6 @@ namespace Backend.Persistence.Context
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // optionsBuilder.UseLazyLoadingProxies();
             optionsBuilder.UseMySQL("server=172.17.0.2;port=3306;database=blueworld;uid=root;Password=qaz123;");
         }
     }

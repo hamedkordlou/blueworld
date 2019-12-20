@@ -43,7 +43,6 @@ namespace Backend.Persistence
             var sharedViews = _context.SharedViews
                                     .Include(x => x.Markers)
                                     .Where(x => x.Reciever == username)
-                                    // .Include(x => x.Markers)
                                     .ToList();
             var result = new List<SharedView>();
             sharedViews.ForEach(x => {
