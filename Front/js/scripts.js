@@ -189,7 +189,7 @@ function loadHome() {
             var param = element.split('=');
             if(param.length == 2) {
                 if(param[0] === "userName") {
-                    // console.log(param[1]);
+                    console.log(param[1]);
                     _username = param[1];
                     // markersData = getMockData(_username);
                     getViewData(_username);
@@ -413,9 +413,9 @@ $("#loadBtn").click(function(event) {
     loadSharedViews();
 });
 
-$("#homeBtn").click(function(event) {
-    loadHome();
-});
+// $("#homeBtn").click(function(event) {
+//     loadHome();
+// });
 
 function loadSharedViews() {
     // get the list of shared views from web api or mock data
@@ -430,7 +430,7 @@ function displaySharedViewsList(sharedViews) {
     modalBody.empty();
     sharedViews.forEach(item => {
         modalBody.append( `
-                            <a href="" id="${item.id}" class="list-group-item">
+                            <a href="#" id="${item.id}" class="list-group-item">
                                 ${item.sender}
                             </a>
                         `);

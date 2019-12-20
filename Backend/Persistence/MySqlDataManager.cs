@@ -51,7 +51,7 @@ namespace Backend.Persistence
                 {
                     var temp = new Backend.OutboundResources.Marker()
                     {
-                        Id = m.Uid,
+                        Id = m.Id.ToString(),
                         Lat = m.Lat,
                         Lng = m.Lng,
                         Text = m.Text
