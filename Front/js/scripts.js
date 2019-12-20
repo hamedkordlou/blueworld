@@ -389,9 +389,11 @@ function shareMapView(userName) {
         url: baseUrl + "api/views/sharemapview",
         data: JSON.stringify(tempMarkerData),
         success: function (data, textStatus, jqXHR) {
+            alert("successful");
             console.log(jqXHR.responseText);
         },
         error: function (jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.statusText);
             console.log(jqXHR.statusText);
         }
     });
@@ -400,8 +402,11 @@ function shareMapView(userName) {
 $("#shareBtn").click(function(event) {
     // alert("share clicked");
     var username = $("#userNameForShare").val();
+    if(username == "")
+        alert("Please enter a username");
     // console.log("username", username);
-    shareMapView(username);
+    else
+        shareMapView(username);
 });
 
 $("#loadBtn").click(function(event) {
@@ -425,7 +430,7 @@ function displaySharedViewsList(sharedViews) {
     modalBody.empty();
     sharedViews.forEach(item => {
         modalBody.append( `
-                            <a href="#" id="${item.id}" class="list-group-item">
+                            <a href="" id="${item.id}" class="list-group-item">
                                 ${item.sender}
                             </a>
                         `);

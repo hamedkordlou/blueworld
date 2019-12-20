@@ -41,6 +41,7 @@ namespace Backend.Persistence
         public IList<SharedView> GetSharedViews (string username) 
         {
             var sharedViews = _context.SharedViews
+                                    .Include(x => x.Markers)
                                     .Where(x => x.Reciever == username)
                                     // .Include(x => x.Markers)
                                     .ToList();
@@ -62,6 +63,7 @@ namespace Backend.Persistence
                     Id = x.Id.ToString(),
                     Lat = x.Lat,
                     Lng = x.Lng,
+                    Zoom = x.Zoom,
                     Reciever = username,
                     Sender = x.Sender,
                     Markers = tempMarkerList
